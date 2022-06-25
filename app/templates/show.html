@@ -1,0 +1,45 @@
+{% include 'header.html' %}
+{% load static %}
+<div style="background-color: #f5f5f5; min-height:590px; margin:10px;">
+    <caption>DATA TABLE</caption>
+<table class="table">
+    <thead>
+
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Firstname</th>
+        <th scope="col">Lastname</th>
+        <th scope="col">Email</th>
+        <th scope="col">Contact</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+   {% if key1 %}
+    <tbody>
+        {% for i in key1 %}
+      <tr>
+        <th scope="row">{{i.id}}</th>
+        <td>{{i.Firstname}}</td>
+        <td>{{i.Lastname}}</td>
+        <td>{{i.Email}}</td>
+        <td>{{i.Contact}}</td>
+        <td>
+            <form name="EditForm" action="{% url 'edit' pk=i.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Edit">
+            </form>
+        </td>
+        <td>
+            <form name="DeleteForm" action="{% url 'deletedata' pk=i.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Delete">
+            </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    {% endif %}
+  </table>
+</div>
+{% include 'footer.html' %}
